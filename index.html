@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>当一场大病降临：14亿人的健康账本</title>
+<meta property="og:title" content="当一场大病降临：14亿人的健康账本">
+<meta property="og:description" content="4.8亿慢性病患者、9500万抑郁症患者、基尼系数0.467——一份关于中国人如何生病、如何承受、如何活下去的深度数据报告。">
+<meta property="og:type" content="article">
+<meta name="format-detection" content="telephone=no">
+<!-- 零外部依赖：所有图表为纯SVG/CSS，无需加载任何CDN -->
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#05060a;--cd:#0f1019;--red:#dc3545;--emb:#e07a2f;--gld:#c49a3c;--tea:#1a9a8e;--blu:#3d7bb8;--cyn:#0891b2;--vio:#7c3aed;--pnk:#be185d;--t0:#fff;--t1:#dfe0e8;--t2:#8c8ea0;--t3:#50526a;--bd:rgba(255,255,255,.06);--bd2:rgba(255,255,255,.10)}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',system-ui,sans-serif;line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:15px}
+::selection{background:var(--red);color:#fff}
+a{color:var(--tea);text-decoration:none}
+strong{color:var(--t0);font-weight:600}
+.mn{font-family:'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.016;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* HERO */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 24px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 25% 35%,rgba(220,53,69,.06) 0%,transparent 70%),radial-gradient(ellipse 50% 60% at 75% 65%,rgba(26,154,142,.04) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 50% 90%,rgba(224,122,47,.03) 0%,transparent 70%)}
+.hero-tag{display:inline-block;padding:4px 20px;border:1px solid var(--bd2);border-radius:100px;font-size:10px;letter-spacing:6px;color:var(--t3);margin-bottom:32px;animation:ri .7s ease both}
+.hero h1{font-weight:900;font-size:clamp(26px,6.5vw,52px);line-height:1.2;margin-bottom:16px;animation:ri .7s .08s ease both}
+.hero h1 em{font-style:normal;display:block;background:linear-gradient(135deg,var(--red),var(--emb),var(--gld));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1 span{display:block;font-size:.48em;font-weight:400;color:var(--t2);margin-top:8px;-webkit-text-fill-color:var(--t2)}
+.hero-desc{font-size:13.5px;color:var(--t2);max-width:540px;margin:0 auto 40px;line-height:2.1;animation:ri .7s .16s ease both}
+.hero-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:560px;width:100%;animation:ri .7s .24s ease both}
+@media(min-width:560px){.hero-grid{grid-template-columns:repeat(4,1fr);max-width:720px}}
+.hero-cell{text-align:center;padding:14px 8px}
+.hero-cell .mn{font-size:clamp(20px,5vw,30px);font-weight:700;display:block;line-height:1.2}
+.hero-cell small{font-size:10px;color:var(--t3);margin-top:3px;display:block}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:var(--t3);font-size:10px;letter-spacing:4px;animation:bob 2.5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+@keyframes ri{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(5,6,10,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav-inner{display:flex;max-width:860px;margin:0 auto;padding:0 6px}
+.nav a{color:var(--t3);font-size:11.5px;font-weight:500;padding:14px 13px;white-space:nowrap;border-bottom:2px solid transparent;transition:.25s;flex-shrink:0}
+.nav a.active,.nav a:hover{color:var(--red);border-bottom-color:var(--red)}
+
+/* LAYOUT */
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+.sec{padding:52px 0 56px;border-bottom:1px solid var(--bd);opacity:0;transform:translateY(24px);transition:opacity .55s,transform .55s}
+.sec.vis{opacity:1;transform:translateY(0)}
+.sec-lb{font-size:10px;letter-spacing:4px;color:var(--red);margin-bottom:6px;font-weight:600}
+.sec-ti{font-weight:900;font-size:clamp(20px,4.5vw,28px);line-height:1.35;margin-bottom:6px}
+.sec-su{font-size:13px;color:var(--t2);margin-bottom:30px;line-height:1.8}
+.txt{font-size:14px;color:var(--t2);line-height:2}
+
+/* COMPONENTS */
+.cd{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:22px;margin-bottom:14px}
+.cd-ac{border-left:4px solid var(--red)}
+.st{background:var(--cd);border-radius:12px;padding:16px;border-left:3px solid var(--red)}
+.st-v{font-size:clamp(18px,4vw,24px);font-weight:700;line-height:1.15;margin-bottom:3px}
+.st-l{font-size:11.5px;font-weight:600;color:var(--t1)}
+.st-s{font-size:9.5px;color:var(--t3);margin-top:2px}
+.qt{background:linear-gradient(135deg,rgba(220,53,69,.04),rgba(224,122,47,.02));border-left:3px solid var(--red);border-radius:0 12px 12px 0;padding:18px 20px;margin:18px 0;font-size:13px;color:var(--t2);line-height:2}
+.qt .src{display:block;margin-top:6px;font-size:10.5px;color:var(--t3);font-style:italic}
+.hl{display:inline;padding:1px 5px;border-radius:3px;font-weight:700;font-size:12.5px}
+.hl-r{background:rgba(220,53,69,.1);color:var(--red)}.hl-e{background:rgba(224,122,47,.1);color:var(--emb)}.hl-t{background:rgba(26,154,142,.1);color:var(--tea)}.hl-b{background:rgba(61,123,184,.1);color:var(--blu)}
+.fc{background:rgba(255,255,255,.012);border-radius:12px;padding:18px;border-top:3px solid var(--red);margin-bottom:10px}
+.fc h4{font-size:13.5px;font-weight:700;margin-bottom:6px}
+.fc p{font-size:12px;color:var(--t2);line-height:2}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:560px){.g4{grid-template-columns:repeat(4,1fr)}}
+.big-n{text-align:center;padding:24px 16px;margin:16px 0}
+.big-n .mn{font-size:clamp(36px,8vw,56px);font-weight:900;line-height:1;margin-bottom:4px}
+.big-n small{font-size:12px;color:var(--t3)}
+.phi{position:relative;padding:28px 24px;margin:18px 0;border-radius:14px;background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(220,53,69,.03));border:1px solid rgba(124,58,237,.12)}
+.phi h4{font-size:14px;font-weight:700;color:var(--vio);margin-bottom:10px}
+.phi p{font-size:13px;color:var(--t2);line-height:2.1}
+.sol{font-size:12px;color:var(--t2);line-height:2;padding-left:18px;position:relative;margin-bottom:1px}
+.sol::before{content:'›';position:absolute;left:3px;font-weight:700;color:var(--red)}
+.ref{font-size:11px;color:var(--t3);line-height:2;padding:6px 0;border-bottom:1px solid var(--bd)}
+.ref:last-child{border-bottom:none}
+.ref b{color:var(--t2);font-weight:600}
+
+/* CHART BOX */
+.cht{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:14px;overflow:hidden}
+.cht-h{font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.cht-h::before{content:'';width:3px;height:14px;background:var(--red);border-radius:2px;flex-shrink:0}
+.cht-f{font-size:9.5px;color:var(--t3);margin-top:10px;text-align:center;line-height:1.6}
+
+/* SVG CHART STYLES */
+.cht svg{width:100%;display:block}
+.bar-label{fill:var(--t2);font-size:10px;font-family:inherit}
+.bar-value{fill:var(--t1);font-size:10px;font-family:'SF Mono',Menlo,Consolas,monospace;font-weight:600}
+.axis-label{fill:var(--t3);font-size:9px;font-family:inherit}
+.grid-line{stroke:rgba(255,255,255,.04);stroke-width:1}
+
+/* CSS BAR CHART */
+.css-bar{margin-bottom:8px}
+.css-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.css-bar-label{font-size:11px;color:var(--t2);min-width:70px;text-align:right;flex-shrink:0}
+.css-bar-track{flex:1;height:20px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden;position:relative}
+.css-bar-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;justify-content:flex-end;padding-right:6px}
+.css-bar-val{font-size:9px;font-weight:700;color:rgba(255,255,255,.9);white-space:nowrap}
+.css-bar-ext{font-size:10px;color:var(--t3);margin-left:6px;min-width:50px;flex-shrink:0}
+
+/* DONUT CSS */
+.donut-wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center}
+.donut-svg{width:180px;height:180px;flex-shrink:0}
+.donut-legend{display:flex;flex-direction:column;gap:4px}
+.donut-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t2)}
+.donut-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* PROGRESS BAR (for insurance etc) */
+.pr{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.pr:last-child{border-bottom:none}
+.pr-l{font-size:11.5px;color:var(--t1);min-width:80px;flex-shrink:0}
+.pr-bar{flex:1;height:6px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden}
+.pr-fill{height:100%;border-radius:3px;width:0;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.pr-v{font-size:11px;font-weight:700;min-width:80px;text-align:right;flex-shrink:0}
+
+/* LINE CHART CSS */
+.line-chart{position:relative;padding:10px 0}
+.line-chart svg{width:100%;overflow:visible}
+
+/* RADAR CSS */
+.radar-wrap{display:flex;justify-content:center;padding:10px 0}
+.radar-wrap svg{max-width:320px;width:100%}
+
+/* SHARE */
+.share{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(5,6,10,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--bd);padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:10px}
+.share-btn{display:inline-flex;align-items:center;gap:5px;padding:10px 22px;border:none;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;font-family:inherit}
+.share-btn:active{transform:scale(.95)}
+.share-p{background:var(--red);color:#fff}
+.share-s{background:rgba(255,255,255,.08);color:var(--t1)}
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);background:rgba(0,0,0,.88);color:#fff;padding:14px 28px;border-radius:10px;font-size:14px;z-index:300;opacity:0;pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.toc{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:22px;margin:28px 0}
+.toc-t{font-size:13px;font-weight:700;margin-bottom:12px}
+.toc a{display:block;font-size:12px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--bd);transition:.2s}
+.toc a:last-child{border-bottom:none}
+.toc a:hover{color:var(--red);padding-left:6px}
+.toc .n{color:var(--red);font-weight:600;margin-right:6px}
+.footer{padding:40px 0 90px;text-align:center}
+.footer p{font-size:10px;color:var(--t3);line-height:2;max-width:700px;margin:0 auto;padding:0 16px}
+@media(max-width:480px){.g2,.g3{grid-template-columns:1fr}.cd{padding:16px}.cht{padding:14px}.sec{padding:36px 0 40px}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+<div class="hero-tag">深 度 数 据 报 告 · 2 0 2 5</div>
+<h1><em>当一场大病降临</em><span>14亿人的健康账本与生命追问</span></h1>
+<p class="hero-desc">一场大病可以摧毁一个中产家庭。在山东省肿瘤医院附近，失去收入的父母每晚在直播间跳舞筹钱救子。他们的身后，是4.8亿慢性病患者、9500万抑郁症患者、基尼系数0.467——以及一个正在被疾病重塑的社会。</p>
+<div class="hero-grid">
+<div class="hero-cell"><b class="mn" style="color:var(--red)">4.82亿</b><small>慢性病确诊人数</small></div>
+<div class="hero-cell"><b class="mn" style="color:var(--emb)">482万</b><small>年新增癌症病例</small></div>
+<div class="hero-cell"><b class="mn" style="color:var(--tea)">0.467</b><small>基尼系数·收入差距</small></div>
+<div class="hero-cell"><b class="mn" style="color:var(--blu)">68.1%</b><small>缺乏健康素养</small></div>
+</div>
+<div class="scroll-hint">▽ 向 下 探 索</div>
+</section>
+
+<nav class="nav"><div class="nav-inner">
+<a href="#s1">现象</a><a href="#s2">疾病</a><a href="#s3">经济</a><a href="#s4">分配</a><a href="#s5">素养</a><a href="#s6">心理</a><a href="#s7">体制</a><a href="#s8">生命</a><a href="#s9">出路</a><a href="#s10">文献</a>
+</div></nav>
+
+<div class="wrap">
+
+<div class="toc">
+<div class="toc-t">📑 全文目录</div>
+<a href="#s1"><span class="n">01</span>现象：抖音跳舞自救的父母</a>
+<a href="#s2"><span class="n">02</span>数据：中国重大疾病全景图谱</a>
+<a href="#s3"><span class="n">03</span>负担：一场大病的经济代价</a>
+<a href="#s4"><span class="n">04</span>分配：谁在承受、谁在沉默</a>
+<a href="#s5"><span class="n">05</span>素养：68%国人的健康认知盲区</a>
+<a href="#s6"><span class="n">06</span>心理：被忽视的9500万</a>
+<a href="#s7"><span class="n">07</span>体制：医疗体系的裂痕与希望</a>
+<a href="#s8"><span class="n">08</span>追问：疾苦、无常与生命的意义</a>
+<a href="#s9"><span class="n">09</span>出路：系统性解决方案</a>
+<a href="#s10"><span class="n">10</span>参考文献与数据来源</a>
+</div>
+
+<!-- S1: PHENOMENON -->
+<section class="sec" id="s1">
+<div class="sec-lb">01 — 现象</div>
+<h2 class="sec-ti">抖音跳舞自救的父母</h2>
+<p class="sec-su">在短视频时代，尊严可以兑换成流量，而流量有时可以换来活下去的机会。</p>
+<div class="cd cd-ac">
+<p style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:12px">✅ 这个现象是真实的</p>
+<p class="txt">在山东省肿瘤医院附近，长期驻守着一群<strong>癌症患儿的父母</strong>。他们失去了稳定收入，蜗居在出租屋里。每天晚上，音乐准时响起——他们在直播间跳着简单而夸张的舞步，靠网友打赏筹集治疗费。在这里，大人没有名字，彼此称呼<strong>"谁谁的妈妈""谁谁的爸爸"</strong>。治疗少则半年，多则八九年，大多持续<span class="hl hl-r">五年左右</span>。</p>
+</div>
+<div class="qt"><strong>"流量的'仁慈'是有条件的"</strong>——观众施予的善意依赖于持续的、积极的情绪表演。一旦露出身后沉重的现实，注意力便迅速消散。几乎在他话音落下的瞬间，激昂的音乐立刻响起，舞蹈又开始了。<span class="src">——腾讯新闻《深夜直播间，跳舞自救的妈妈们》</span></div>
+<div class="g2" style="margin-top:16px">
+<div class="cd"><h4 style="font-size:13px;font-weight:700;color:var(--emb);margin-bottom:8px">💰 平台是否直接资助？</h4><p class="txt" style="font-size:12px"><strong>不会。</strong>收入来自网友打赏，平台抽成约50%。抖音2024年斥资7.34亿成立医疗管理公司，定位康复商业化，非慈善。</p></div>
+<div class="cd"><h4 style="font-size:13px;font-weight:700;color:var(--tea);margin-bottom:8px">🔍 真假混杂</h4><p class="txt" style="font-size:12px">2024年处理<span class="hl hl-t">3.7万条</span>违规视频，封禁<span class="hl hl-t">1,711个</span>账号。真正需要救助的家庭也因此更难被看见。</p></div>
+</div>
+<div class="qt" style="border-left-color:var(--tea)">"豆丁爸爸"说：<strong>"面对伤痛无非两种方式——要么深埋心底，要么经常晾晒。"</strong>他选择留在小院，陪伴其他还在抗争的家庭。<span class="src">——腾讯新闻 · 2025</span></div>
+</section>
+
+<!-- S2: DISEASE -->
+<section class="sec" id="s2">
+<div class="sec-lb">02 — 疾病全景</div>
+<h2 class="sec-ti">中国重大疾病全景图谱</h2>
+<p class="sec-su">慢性病占总死亡的85%，癌症新增全球第一。</p>
+<div class="g4" style="margin-bottom:16px">
+<div class="st" style="border-left-color:var(--red)"><div class="st-v mn" style="color:var(--red)">2.7亿</div><div class="st-l">高血压</div><div class="st-s">知晓率仅51.6%</div></div>
+<div class="st" style="border-left-color:var(--emb)"><div class="st-v mn" style="color:var(--emb)">1.4亿</div><div class="st-l">糖尿病</div><div class="st-s">70%不知自己患病</div></div>
+<div class="st" style="border-left-color:var(--tea)"><div class="st-v mn" style="color:var(--tea)">9,990万</div><div class="st-l">慢阻肺</div><div class="st-s">农村高于城市</div></div>
+<div class="st" style="border-left-color:var(--blu)"><div class="st-v mn" style="color:var(--blu)">8,200万</div><div class="st-l">慢性肾病</div><div class="st-s">知晓率不足10%</div></div>
+</div>
+
+<!-- SVG BAR: Disease patients -->
+<div class="cht"><div class="cht-h">主要慢性病与重大疾病患者规模</div>
+<div class="css-bar">
+<div class="css-bar-row"><span class="css-bar-label">高血压</span><div class="css-bar-track"><div class="css-bar-fill" style="width:100%;background:var(--red)" data-w="100"><span class="css-bar-val">2.7亿</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">糖尿病</span><div class="css-bar-track"><div class="css-bar-fill" style="width:51.9%;background:var(--emb)" data-w="51.9"><span class="css-bar-val">1.4亿</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">慢阻肺</span><div class="css-bar-track"><div class="css-bar-fill" style="width:37%;background:var(--pnk)" data-w="37"><span class="css-bar-val">9,990万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">慢性肾病</span><div class="css-bar-track"><div class="css-bar-fill" style="width:30.4%;background:var(--vio)" data-w="30.4"><span class="css-bar-val">8,200万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">罕见病</span><div class="css-bar-track"><div class="css-bar-fill" style="width:7.4%;background:var(--cyn)" data-w="7.4"><span class="css-bar-val">2,000万</span></div></div><span class="css-bar-ext" style="color:var(--cyn)">95%无药</span></div>
+<div class="css-bar-row"><span class="css-bar-label">脑卒中</span><div class="css-bar-track"><div class="css-bar-fill" style="width:4.8%;background:var(--tea)" data-w="4.8"><span class="css-bar-val">1,300万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">冠心病</span><div class="css-bar-track"><div class="css-bar-fill" style="width:4.1%;background:var(--blu)" data-w="4.1"><span class="css-bar-val">1,100万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">癌症/年新增</span><div class="css-bar-track"><div class="css-bar-fill" style="width:1.8%;background:var(--gld)" data-w="1.8"><span class="css-bar-val">482万</span></div></div><span class="css-bar-ext" style="color:var(--gld)">全球第一</span></div>
+</div>
+<div class="cht-f">数据来源：国家卫健委 · 中国精算师协会 · 国家癌症中心</div></div>
+
+<!-- DONUT: Death causes -->
+<div class="cht"><div class="cht-h">中国居民死因构成</div>
+<div class="donut-wrap">
+<svg class="donut-svg" viewBox="0 0 200 200">
+<circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255,255,255,.03)" stroke-width="28"/>
+<circle cx="100" cy="100" r="70" fill="none" stroke="#dc3545" stroke-width="28" stroke-dasharray="176 264" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="70" fill="none" stroke="#e07a2f" stroke-width="28" stroke-dasharray="105.6 334.4" stroke-dashoffset="-176" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="70" fill="none" stroke="#1a9a8e" stroke-width="28" stroke-dasharray="48.4 391.6" stroke-dashoffset="-281.6" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="70" fill="none" stroke="#3d7bb8" stroke-width="28" stroke-dasharray="22 418" stroke-dashoffset="-330" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="70" fill="none" stroke="#c49a3c" stroke-width="28" stroke-dasharray="22 418" stroke-dashoffset="-352" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="70" fill="none" stroke="#50526a" stroke-width="28" stroke-dasharray="66 374" stroke-dashoffset="-374" transform="rotate(-90 100 100)"/>
+<text x="100" y="95" text-anchor="middle" fill="#dc3545" font-size="22" font-weight="900" font-family="'SF Mono',monospace">85%</text>
+<text x="100" y="115" text-anchor="middle" fill="#8c8ea0" font-size="10" font-family="inherit">慢性病致死占比</text>
+</svg>
+<div class="donut-legend">
+<div class="donut-item"><span class="donut-dot" style="background:#dc3545"></span>心脑血管病 40%</div>
+<div class="donut-item"><span class="donut-dot" style="background:#e07a2f"></span>恶性肿瘤 24%</div>
+<div class="donut-item"><span class="donut-dot" style="background:#1a9a8e"></span>慢性呼吸病 11%</div>
+<div class="donut-item"><span class="donut-dot" style="background:#3d7bb8"></span>糖尿病 5%</div>
+<div class="donut-item"><span class="donut-dot" style="background:#c49a3c"></span>其他慢性病 5%</div>
+<div class="donut-item"><span class="donut-dot" style="background:#50526a"></span>非慢性病因 15%</div>
+</div>
+</div></div>
+
+<div class="g2" style="margin-top:14px">
+<div class="cd"><h4 style="font-size:13.5px;font-weight:700;color:var(--red);margin-bottom:10px">🔬 癌症</h4><p class="txt" style="font-size:12px">2022年新增<strong>482万例</strong>，年增速3.9%。五年生存率仅30.9%，远低于美日欧的60-70%。<span class="hl hl-r">城市第一死因。</span></p></div>
+<div class="cd"><h4 style="font-size:13.5px;font-weight:700;color:var(--cyn);margin-bottom:10px">🧬 罕见病</h4><p class="txt" style="font-size:12px">约<strong>2,000万</strong>患者，80%先天遗传。目录仅207种。<span class="hl hl-b">95%无有效治疗</span>，30%患儿五岁内夭折。平均确诊需4.26年。</p></div>
+</div>
+
+<!-- Cancer survival comparison -->
+<div class="cht"><div class="cht-h">癌症五年生存率国际对比</div>
+<div class="css-bar">
+<div class="css-bar-row"><span class="css-bar-label" style="color:var(--red);font-weight:700">中国</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--red)" data-w="41.2"><span class="css-bar-val">30.9%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">英国</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--gld)" data-w="72.4"><span class="css-bar-val">54.3%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">德国</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--vio)" data-w="73.3"><span class="css-bar-val">55.0%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">日本</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--tea)" data-w="85.5"><span class="css-bar-val">64.1%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">韩国</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--cyn)" data-w="86.7"><span class="css-bar-val">65.0%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">美国</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--blu)" data-w="89.5"><span class="css-bar-val">67.1%</span></div></div></div>
+</div>
+<div class="cht-f">中国癌症五年生存率约为发达国家的一半</div></div>
+</section>
+
+<!-- S3: ECONOMIC -->
+<section class="sec" id="s3">
+<div class="sec-lb">03 — 经济负担</div>
+<h2 class="sec-ti">一场大病的经济代价</h2>
+<p class="sec-su">"辛辛苦苦三十年，一病回到解放前"——这不是夸张，而是数学。</p>
+<div class="big-n"><div class="mn" style="color:var(--red)">58%</div><small>癌症家庭医疗支出占家庭收入的比重</small></div>
+<div class="g4" style="margin-bottom:16px">
+<div class="st" style="border-left-color:var(--red)"><div class="st-v mn" style="color:var(--red)">20-80万</div><div class="st-l">癌症治疗费</div><div class="st-s">部分超百万</div></div>
+<div class="st" style="border-left-color:var(--emb)"><div class="st-v mn" style="color:var(--emb)">4.13万</div><div class="st-l">人均可支配收入</div><div class="st-s">2024全国平均</div></div>
+<div class="st" style="border-left-color:var(--tea)"><div class="st-v mn" style="color:var(--tea)">2.31万</div><div class="st-l">农村人均收入</div><div class="st-s">仅为城镇42.7%</div></div>
+<div class="st" style="border-left-color:var(--blu)"><div class="st-v mn" style="color:var(--blu)">32.6年</div><div class="st-l">低收入户</div><div class="st-s">大病耗尽收入</div></div>
+</div>
+
+<!-- Treatment cost -->
+<div class="cht"><div class="cht-h">重大疾病治疗费用（万元）</div>
+<div class="css-bar">
+<div class="css-bar-row"><span class="css-bar-label">白血病</span><div class="css-bar-track"><div class="css-bar-fill" style="background:linear-gradient(90deg,var(--emb) 60%,var(--red) 100%)" data-w="100"><span class="css-bar-val">60-100万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">癌症综合</span><div class="css-bar-track"><div class="css-bar-fill" style="background:linear-gradient(90deg,var(--emb) 62.5%,var(--red) 100%)" data-w="80"><span class="css-bar-val">20-80万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">罕见病/年</span><div class="css-bar-track"><div class="css-bar-fill" style="background:linear-gradient(90deg,var(--cyn) 30%,var(--red) 100%)" data-w="100"><span class="css-bar-val">30-100万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">心脏搭桥</span><div class="css-bar-track"><div class="css-bar-fill" style="background:linear-gradient(90deg,var(--tea) 50%,var(--emb) 100%)" data-w="30"><span class="css-bar-val">15-30万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">急性心梗</span><div class="css-bar-track"><div class="css-bar-fill" style="background:linear-gradient(90deg,var(--blu) 48%,var(--emb) 100%)" data-w="25"><span class="css-bar-val">12-25万</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">肾透析/年</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--vio)" data-w="15"><span class="css-bar-val">10-15万</span></div></div></div>
+</div></div>
+
+<!-- Years to pay -->
+<div class="cht"><div class="cht-h">不同收入群体偿付30万治疗费所需年份</div>
+<div class="css-bar">
+<div class="css-bar-row"><span class="css-bar-label" style="color:var(--red);font-weight:700">低收入户</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--red)" data-w="100"><span class="css-bar-val">32.6年</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">中间偏下</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--emb)" data-w="45.1"><span class="css-bar-val">14.7年</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">中间收入</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--gld)" data-w="28.5"><span class="css-bar-val">9.3年</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">中间偏上</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--tea)" data-w="18.4"><span class="css-bar-val">6.0年</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">高收入户</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--blu)" data-w="9.5"><span class="css-bar-val">3.1年</span></div></div></div>
+</div>
+<div class="cht-f">按2024年五等分组收入计算 · 不含日常开支 · 不吃不喝全部用于治疗</div></div>
+
+<div class="qt">一个年收入4万元的农村家庭，孩子得了白血病，治疗费60-100万。即使不吃不喝，也需要<strong>15-25年</strong>才能还清。这就是"跳舞筹钱"的数学背景。</div>
+
+<!-- Poverty trend: SVG line -->
+<div class="cht"><div class="cht-h">因病致贫比例变化趋势</div>
+<svg viewBox="0 0 400 180" style="max-height:200px">
+<line x1="50" y1="10" x2="50" y2="150" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+<line x1="50" y1="150" x2="380" y2="150" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+<line x1="50" y1="70" x2="380" y2="70" stroke="rgba(255,255,255,.03)" stroke-width="1" stroke-dasharray="4"/>
+<line x1="50" y1="110" x2="380" y2="110" stroke="rgba(255,255,255,.03)" stroke-width="1" stroke-dasharray="4"/>
+<text x="46" y="34" text-anchor="end" fill="#50526a" font-size="9">40%</text>
+<text x="46" y="74" text-anchor="end" fill="#50526a" font-size="9">25%</text>
+<text x="46" y="114" text-anchor="end" fill="#50526a" font-size="9">15%</text>
+<text x="46" y="154" text-anchor="end" fill="#50526a" font-size="9">0%</text>
+<!-- area fill -->
+<polygon points="72,31 152,52 232,82 302,101 372,118 372,150 72,150" fill="rgba(220,53,69,.08)"/>
+<!-- line -->
+<polyline points="72,31 152,52 232,82 302,101 372,118" fill="none" stroke="#dc3545" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<!-- dots -->
+<circle cx="72" cy="31" r="5" fill="#dc3545" stroke="#0f1019" stroke-width="2"/>
+<circle cx="152" cy="52" r="5" fill="#dc3545" stroke="#0f1019" stroke-width="2"/>
+<circle cx="232" cy="82" r="5" fill="#dc3545" stroke="#0f1019" stroke-width="2"/>
+<circle cx="302" cy="101" r="5" fill="#dc3545" stroke="#0f1019" stroke-width="2"/>
+<circle cx="372" cy="118" r="5" fill="#dc3545" stroke="#0f1019" stroke-width="2"/>
+<!-- labels -->
+<text x="72" y="25" text-anchor="middle" fill="#dc3545" font-size="10" font-weight="700" font-family="'SF Mono',monospace">42.4%</text>
+<text x="152" y="46" text-anchor="middle" fill="#dc3545" font-size="10" font-weight="700" font-family="'SF Mono',monospace">35.2%</text>
+<text x="232" y="76" text-anchor="middle" fill="#dc3545" font-size="9" font-weight="700" font-family="'SF Mono',monospace">25.8%</text>
+<text x="302" y="95" text-anchor="middle" fill="#dc3545" font-size="9" font-weight="700" font-family="'SF Mono',monospace">18.5%</text>
+<text x="372" y="112" text-anchor="middle" fill="#dc3545" font-size="9" font-weight="700" font-family="'SF Mono',monospace">12.3%</text>
+<text x="72" y="168" text-anchor="middle" fill="#50526a" font-size="9">2013</text>
+<text x="152" y="168" text-anchor="middle" fill="#50526a" font-size="9">2016</text>
+<text x="232" y="168" text-anchor="middle" fill="#50526a" font-size="9">2019</text>
+<text x="302" y="168" text-anchor="middle" fill="#50526a" font-size="9">2021</text>
+<text x="372" y="168" text-anchor="middle" fill="#50526a" font-size="9">2023</text>
+</svg>
+<div class="cht-f">来源：国家扶贫办/乡村振兴局 建档立卡数据</div></div>
+</section>
+
+<!-- S4: DISTRIBUTION -->
+<section class="sec" id="s4">
+<div class="sec-lb">04 — 收入分配</div>
+<h2 class="sec-ti">谁在承受、谁在沉默</h2>
+<p class="sec-su">基尼系数0.467，城乡收入比2.34:1——疾病面前，不平等被无限放大。</p>
+<div class="g2" style="margin-bottom:16px">
+<div class="st" style="border-left-color:var(--vio)"><div class="st-v mn" style="color:var(--vio)">0.467</div><div class="st-l">基尼系数</div><div class="st-s">收入差距较大行列</div></div>
+<div class="st" style="border-left-color:var(--emb)"><div class="st-v mn" style="color:var(--emb)">2.34:1</div><div class="st-l">城乡收入比</div><div class="st-s">2024年</div></div>
+</div>
+
+<div class="cht"><div class="cht-h">2024年五等分组收入差距（万元/年）</div>
+<div class="css-bar">
+<div class="css-bar-row"><span class="css-bar-label" style="color:var(--red)">最低20%</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--red)" data-w="9.3"><span class="css-bar-val" style="color:var(--red);position:absolute;right:-45px">0.97万</span></div></div><span class="css-bar-ext" style="color:var(--red)">0.97万</span></div>
+<div class="css-bar-row"><span class="css-bar-label">中间偏下</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--emb)" data-w="20.8"></div></div><span class="css-bar-ext" style="color:var(--emb)">2.17万</span></div>
+<div class="css-bar-row"><span class="css-bar-label">中间</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--gld)" data-w="33.2"></div></div><span class="css-bar-ext" style="color:var(--gld)">3.47万</span></div>
+<div class="css-bar-row"><span class="css-bar-label">中间偏上</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--tea)" data-w="51.9"></div></div><span class="css-bar-ext" style="color:var(--tea)">5.42万</span></div>
+<div class="css-bar-row"><span class="css-bar-label" style="color:var(--blu);font-weight:700">最高20%</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--blu)" data-w="100"></div></div><span class="css-bar-ext" style="color:var(--blu)">10.44万</span></div>
+</div>
+<div class="cht-f">最高20%与最低20%的年收入差距超过9万元 · 来源：国家统计局</div></div>
+
+<div class="cd" style="margin-top:14px">
+<h4 style="font-size:14px;font-weight:700;margin-bottom:14px">📊 医疗面前的三重不平等</h4>
+<div class="g3">
+<div class="fc" style="border-top-color:var(--red)"><h4 style="color:var(--red)">收入不平等</h4><p>最低20%人口收入仅占全国均值的<strong style="color:var(--t0)">23.5%</strong>。再分配仅使基尼系数下降约10%，远低于欧洲20-40%。</p></div>
+<div class="fc" style="border-top-color:var(--emb)"><h4 style="color:var(--emb)">报销不平等</h4><p>职工医保住院报销<strong style="color:var(--t0)">84.6%</strong>，居民医保仅<strong style="color:var(--t0)">68.1%</strong>。大量药物不在报销目录内。</p></div>
+<div class="fc" style="border-top-color:var(--tea)"><h4 style="color:var(--tea)">资源不平等</h4><p>东部健康素养<strong style="color:var(--t0)">34.98%</strong>，西部仅<strong style="color:var(--t0)">27.27%</strong>。优质医疗高度集中一线。</p></div>
+</div>
+</div>
+
+<!-- Gini trend SVG -->
+<div class="cht"><div class="cht-h">基尼系数历史变化趋势</div>
+<svg viewBox="0 0 400 160" style="max-height:180px">
+<line x1="40" y1="10" x2="40" y2="130" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+<line x1="40" y1="130" x2="390" y2="130" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+<line x1="40" y1="50" x2="390" y2="50" stroke="rgba(255,255,255,.03)" stroke-width="1" stroke-dasharray="4"/>
+<line x1="40" y1="90" x2="390" y2="90" stroke="rgba(255,255,255,.03)" stroke-width="1" stroke-dasharray="4"/>
+<text x="36" y="17" text-anchor="end" fill="#50526a" font-size="8">0.49</text>
+<text x="36" y="54" text-anchor="end" fill="#50526a" font-size="8">0.47</text>
+<text x="36" y="94" text-anchor="end" fill="#50526a" font-size="8">0.46</text>
+<text x="36" y="134" text-anchor="end" fill="#50526a" font-size="8">0.45</text>
+<!-- line: scale 0.45=130, 0.49=10, so per 0.01 = 30px -->
+<polygon points="60,13 110,43 160,58 210,68 230,88 260,78 310,73 340,73 370,78 370,130 60,130" fill="rgba(220,53,69,.06)"/>
+<polyline points="60,13 110,43 160,58 210,68 230,88 260,78 310,73 340,73 370,78" fill="none" stroke="#dc3545" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="60" cy="13" r="4" fill="#dc3545" stroke="#0f1019" stroke-width="2"/>
+<circle cx="230" cy="88" r="4" fill="#1a9a8e" stroke="#0f1019" stroke-width="2"/>
+<circle cx="370" cy="78" r="4" fill="#dc3545" stroke="#0f1019" stroke-width="2"/>
+<text x="60" y="8" text-anchor="middle" fill="#dc3545" font-size="9" font-weight="700">.491</text>
+<text x="230" y="103" text-anchor="middle" fill="#1a9a8e" font-size="9" font-weight="700">.462↓</text>
+<text x="370" y="73" text-anchor="middle" fill="#dc3545" font-size="9" font-weight="700">.465</text>
+<text x="60" y="148" text-anchor="middle" fill="#50526a" font-size="8">2008</text>
+<text x="160" y="148" text-anchor="middle" fill="#50526a" font-size="8">2012</text>
+<text x="230" y="148" text-anchor="middle" fill="#50526a" font-size="8">2015</text>
+<text x="310" y="148" text-anchor="middle" fill="#50526a" font-size="8">2020</text>
+<text x="370" y="148" text-anchor="middle" fill="#50526a" font-size="8">2024</text>
+</svg>
+<div class="cht-f">2008年达峰值0.491后下降，2015年后徘徊在0.46-0.47 · 来源：国家统计局</div></div>
+
+<div class="phi"><h4>🔍 当疾病遇上不平等</h4><p>收入差距本身不致命。但当一场大病降临时，差距就变成了生死线。高收入家庭3年偿清的治疗费，低收入家庭需要32年——这不是差距，这是两个平行世界。</p></div>
+</section>
+
+<!-- S5: LITERACY -->
+<section class="sec" id="s5">
+<div class="sec-lb">05 — 健康素养</div>
+<h2 class="sec-ti">68%国人的健康认知盲区</h2>
+<p class="sec-su">不知道自己生病、不知道怎么就医、不知道如何预防——这才是最大的健康风险。</p>
+<div class="big-n"><div class="mn" style="color:var(--emb)">31.87<span style="font-size:.5em;color:var(--t3)">%</span></div><small>2024年全国居民健康素养水平 · 近7成国人缺乏基本健康素养</small></div>
+<div class="cht"><div class="cht-h">六类健康问题素养达标率（2024）</div>
+<div class="css-bar">
+<div class="css-bar-row"><span class="css-bar-label">安全急救</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--tea)" data-w="87.6"><span class="css-bar-val">61.29%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">科学健康观</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--blu)" data-w="80.4"><span class="css-bar-val">56.27%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">健康信息</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--gld)" data-w="62.9"><span class="css-bar-val">44.03%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label">慢性病防治</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--emb)" data-w="46.8"><span class="css-bar-val">32.77%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label" style="color:var(--red)">基本医疗</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--red)" data-w="43.1"><span class="css-bar-val">30.16%</span></div></div></div>
+<div class="css-bar-row"><span class="css-bar-label" style="color:var(--pnk)">传染病防治</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--pnk)" data-w="41.8"><span class="css-bar-val">29.26%</span></div></div></div>
+</div>
+<div class="cht-f">国家卫健委2024年监测 · 覆盖336县1008乡镇</div></div>
+
+<!-- Literacy trend SVG -->
+<div class="cht"><div class="cht-h">居民健康素养增长历程</div>
+<svg viewBox="0 0 400 160" style="max-height:180px">
+<line x1="40" y1="10" x2="40" y2="130" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+<line x1="40" y1="130" x2="390" y2="130" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+<text x="36" y="17" text-anchor="end" fill="#50526a" font-size="8">35%</text>
+<text x="36" y="74" text-anchor="end" fill="#50526a" font-size="8">15%</text>
+<text x="36" y="134" text-anchor="end" fill="#50526a" font-size="8">0%</text>
+<polygon points="60,100 110,97 160,90 210,72 260,50 310,34 340,28 380,21 380,130 60,130" fill="rgba(26,154,142,.08)"/>
+<polyline points="60,100 110,97 160,90 210,72 260,50 310,34 340,28 380,21" fill="none" stroke="#1a9a8e" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="60" cy="100" r="4" fill="#1a9a8e" stroke="#0f1019" stroke-width="2"/>
+<circle cx="380" cy="21" r="5" fill="#1a9a8e" stroke="#0f1019" stroke-width="2"/>
+<text x="60" y="115" text-anchor="middle" fill="#1a9a8e" font-size="9" font-weight="700">8.8%</text>
+<text x="380" y="16" text-anchor="middle" fill="#1a9a8e" font-size="10" font-weight="700">31.87%</text>
+<text x="60" y="148" text-anchor="middle" fill="#50526a" font-size="8">2012</text>
+<text x="160" y="148" text-anchor="middle" fill="#50526a" font-size="8">2016</text>
+<text x="260" y="148" text-anchor="middle" fill="#50526a" font-size="8">2020</text>
+<text x="340" y="148" text-anchor="middle" fill="#50526a" font-size="8">2023</text>
+<text x="380" y="148" text-anchor="middle" fill="#50526a" font-size="8">2024</text>
+</svg>
+<div class="cht-f">12年间从8.80%提升至31.87% · 年均增幅约2个百分点</div></div>
+
+<div class="cd"><h4 style="font-size:14px;font-weight:700;color:var(--emb);margin-bottom:14px">🔍 四个致命盲区</h4>
+<div class="g2">
+<div class="fc" style="border-top-color:var(--red)"><h4 style="color:var(--red)">不知道自己生病</h4><p><strong style="color:var(--t0)">70%</strong>糖尿病患者不自知。高血压知晓率仅51.6%。慢性肾病知晓率不足10%。</p></div>
+<div class="fc" style="border-top-color:var(--emb)"><h4 style="color:var(--emb)">"小病扛、大病拖"</h4><p><strong style="color:var(--t0)">42%</strong>罕见病患者被误诊。确诊需辗转多家医院，平均4.26年。</p></div>
+<div class="fc" style="border-top-color:var(--tea)"><h4 style="color:var(--tea)">讳疾忌医</h4><p>1.73亿精神疾病患者<strong style="color:var(--t0)">91.4%</strong>从未治疗。充分治疗率仅<strong style="color:var(--t0)">0.5%</strong>。</p></div>
+<div class="fc" style="border-top-color:var(--blu)"><h4 style="color:var(--blu)">城乡信息鸿沟</h4><p>城市健康素养<strong style="color:var(--t0)">34.74%</strong>，农村<strong style="color:var(--t0)">29.11%</strong>。东西部差距近8个百分点。</p></div>
+</div></div>
+</section>
+
+<!-- S6: MENTAL -->
+<section class="sec" id="s6">
+<div class="sec-lb">06 — 心理健康</div>
+<h2 class="sec-ti">被忽视的9500万</h2>
+<p class="sec-su">身体在跳舞，灵魂在流泪。</p>
+<div class="g4" style="margin-bottom:16px">
+<div class="st" style="border-left-color:var(--pnk)"><div class="st-v mn" style="color:var(--pnk)">9,500万</div><div class="st-l">抑郁症患者</div><div class="st-s">终生患病率6.8%</div></div>
+<div class="st" style="border-left-color:var(--vio)"><div class="st-v mn" style="color:var(--vio)">1.73亿</div><div class="st-l">各类精神疾病</div><div class="st-s">91.4%从未治疗</div></div>
+<div class="st" style="border-left-color:var(--emb)"><div class="st-v mn" style="color:var(--emb)">10.6%</div><div class="st-l">成人抑郁风险</div><div class="st-s">就诊率仅9.5%</div></div>
+<div class="st" style="border-left-color:var(--tea)"><div class="st-v mn" style="color:var(--tea)">75-90%</div><div class="st-l">抑郁症复发率</div><div class="st-s">终生性疾病</div></div>
+</div>
+
+<div class="cht"><div class="cht-h">心理健康的"冰山"：从患病到治愈的漫长断崖</div>
+<div class="css-bar">
+<div class="css-bar-row"><span class="css-bar-label">患者总数</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--pnk)" data-w="100"></div></div><span class="css-bar-ext" style="color:var(--pnk);font-weight:700">9,500万</span></div>
+<div class="css-bar-row"><span class="css-bar-label">曾被识别</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--vio)" data-w="21"></div></div><span class="css-bar-ext" style="color:var(--vio)">~21% ≈2,000万</span></div>
+<div class="css-bar-row"><span class="css-bar-label">正在治疗</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--emb)" data-w="9.5"></div></div><span class="css-bar-ext" style="color:var(--emb)">~9.5% ≈900万</span></div>
+<div class="css-bar-row"><span class="css-bar-label" style="color:var(--red);font-weight:700">充分治疗</span><div class="css-bar-track"><div class="css-bar-fill" style="background:var(--red)" data-w="0.5"></div></div><span class="css-bar-ext" style="color:var(--red);font-weight:700">0.5% ≈47.5万</span></div>
+</div>
+<div class="cht-f">从9,500万到47.5万：99.5%的患者未获充分治疗</div></div>
+
+<div class="cd"><h4 style="font-size:14px;font-weight:700;color:var(--vio);margin-bottom:14px">📋 2024心理健康蓝皮书核心发现</h4>
+<p class="txt" style="font-size:12px;margin-bottom:12px">基于17万+样本（中科院心理研究所）：</p>
+<div class="g2">
+<div class="fc" style="border-top-color:var(--pnk)"><h4 style="color:var(--pnk)">最脆弱的年龄</h4><p>抑郁在<strong style="color:var(--t0)">18-24岁</strong>达峰值。青少年日均短视频超90分钟。</p></div>
+<div class="fc" style="border-top-color:var(--vio)"><h4 style="color:var(--vio)">过劳侵蚀</h4><p>日均工作超10小时抑郁水平<strong style="color:var(--t0)">升高23%</strong>。</p></div>
+<div class="fc" style="border-top-color:var(--emb)"><h4 style="color:var(--emb)">运动是最佳处方</h4><p>每周运动≥4次者抑郁高风险降为<strong style="color:var(--t0)">1/3</strong>。</p></div>
+<div class="fc" style="border-top-color:var(--tea)"><h4 style="color:var(--tea)">知识是短板</h4><p>心理健康知识达标率<strong style="color:var(--t0)">最低</strong>。养育知识正确率仅6.9%。</p></div>
+</div></div>
+</section>
+
+<!-- S7: SYSTEM -->
+<section class="sec" id="s7">
+<div class="sec-lb">07 — 医疗体制</div>
+<h2 class="sec-ti">医疗体系的裂痕与希望</h2>
+<p class="sec-su">13.3亿人参保，覆盖率95%+——但裂痕在数字看不到的地方。</p>
+<div class="cd">
+<div class="cht-h" style="margin-bottom:14px">医保覆盖全景（2024）</div>
+<div class="pr"><span class="pr-l">基本医保</span><div class="pr-bar"><div class="pr-fill" style="background:var(--red)" data-w="95"></div></div><span class="pr-v mn" style="color:var(--red)">13.3亿 95%+</span></div>
+<div class="pr"><span class="pr-l">职工医保</span><div class="pr-bar"><div class="pr-fill" style="background:var(--emb)" data-w="26.3"></div></div><span class="pr-v mn" style="color:var(--emb)">3.71亿</span></div>
+<div class="pr"><span class="pr-l">居民医保</span><div class="pr-bar"><div class="pr-fill" style="background:var(--tea)" data-w="67.1"></div></div><span class="pr-v mn" style="color:var(--tea)">9.47亿</span></div>
+<div class="pr"><span class="pr-l">医疗救助</span><div class="pr-bar"><div class="pr-fill" style="background:var(--blu)" data-w="5.6"></div></div><span class="pr-v mn" style="color:var(--blu)">7,916万</span></div>
+<div class="pr"><span class="pr-l">长护险试点</span><div class="pr-bar"><div class="pr-fill" style="background:var(--vio)" data-w="13.3"></div></div><span class="pr-v mn" style="color:var(--vio)">49城 1.88亿</span></div>
+</div>
+<div class="cd" style="margin-top:14px">
+<h4 style="font-size:14px;font-weight:700;margin-bottom:14px">⚠️ 裂痕</h4>
+<div class="g2">
+<div class="fc" style="border-top-color:var(--red)"><h4 style="color:var(--red)">保而不全</h4><p>个人自付占卫生总支出<strong style="color:var(--t0)">28%</strong>。大量新药不在目录内。</p></div>
+<div class="fc" style="border-top-color:var(--emb)"><h4 style="color:var(--emb)">城乡双轨</h4><p>职工医保报销<strong style="color:var(--t0)">84.6%</strong>，居民医保仅<strong style="color:var(--t0)">68.1%</strong>。养老金差16倍。</p></div>
+<div class="fc" style="border-top-color:var(--tea)"><h4 style="color:var(--tea)">基层空心化</h4><p>优质资源集中三甲。分级诊疗难以落地。</p></div>
+<div class="fc" style="border-top-color:var(--blu)"><h4 style="color:var(--blu)">罕见病无门</h4><p>全球7000+罕见病，目录仅<strong style="color:var(--t0)">207种</strong>。95%无药。</p></div>
+</div></div>
+<div class="cd" style="margin-top:14px;background:linear-gradient(135deg,rgba(26,154,142,.03),rgba(61,123,184,.03))">
+<h4 style="font-size:14px;font-weight:700;color:var(--tea);margin-bottom:14px">✅ 希望</h4>
+<div class="sol">药品集采九批374种药品，平均降价超50%</div>
+<div class="sol">2024年医疗救助792亿元，1.8亿人次</div>
+<div class="sol">长护险49城试点1.88亿人</div>
+<div class="sol">罕见病目录扩容至207种</div>
+<div class="sol">DRG/DIP支付改革全国推开</div>
+</div>
+</section>
+
+<!-- S8: PHILOSOPHY -->
+<section class="sec" id="s8">
+<div class="sec-lb">08 — 生命追问</div>
+<h2 class="sec-ti">疾苦、无常与生命的意义</h2>
+<p class="sec-su">当制度尚有缝隙——人如何面对苦难、理解健康、与死亡共处？</p>
+<div class="phi"><h4>🏛️ 儒家：家庭是第一道防线</h4><p>"父母在，不远游"——家庭互助应对灾病。这赋予了韧性，但也意味着<strong>苦难最终沉淀为家庭的负重</strong>。母亲为孩子跳舞时，她既在践行最深的母爱，也在承受最重的制度缺位。</p></div>
+<div class="phi" style="border-color:rgba(224,122,47,.15)"><h4 style="color:var(--emb)">☸️ 佛道：接受无常，还是放弃追问？</h4><p>"生老病死，苦集灭道。"接受无常本是东方智慧。但"认命"文化过度内化，可能让人<strong>不再追问"为什么保障不足"</strong>。真正的智慧是既接受不可改变的，也改变可以改变的。</p></div>
+<div class="phi" style="border-color:rgba(124,58,237,.15)"><h4>🔭 存在主义：苦难中的意义</h4><p>弗兰克尔写下：<strong>"人可以被夺去一切，唯独不能被夺去选择自己态度的自由。"</strong>跳舞的父母选择行动而非等待，暴露而非沉默。这本身就是意义的创造。</p></div>
+<div class="cd" style="background:linear-gradient(135deg,rgba(220,53,69,.03),rgba(196,154,60,.02));margin-top:16px">
+<h4 style="font-size:15px;font-weight:700;color:var(--gld);margin-bottom:14px">🪞 三个根本追问</h4>
+<p class="txt" style="font-size:13px;margin-bottom:16px"><strong style="color:var(--red)">第一问：健康是奢侈品还是基本权利？</strong></p>
+<p class="txt" style="font-size:12.5px;margin-bottom:16px">当GDP世界第二的国家里，癌症患儿的父母需要跳舞筹钱——<strong>医疗保障应该是福利还是基本权利？</strong></p>
+<p class="txt" style="font-size:13px;margin-bottom:16px"><strong style="color:var(--emb)">第二问：我们害怕的是死亡，还是死不起？</strong></p>
+<p class="txt" style="font-size:12.5px;margin-bottom:16px">中国人对死亡的恐惧往往来自<strong>家庭经济崩溃的担忧</strong>。当"死不起"比"活不起"更焦虑，健康观需要根本重构。</p>
+<p class="txt" style="font-size:13px;margin-bottom:16px"><strong style="color:var(--tea)">第三问：谁该为苦难负责？</strong></p>
+<p class="txt" style="font-size:12.5px">"跳舞筹钱"不应被浪漫化。问题不在于该不该跳舞，而在于为什么<strong>必须</strong>跳舞。善治的社会，应让人在最脆弱时不必表演坚强。</p>
+</div>
+</section>
+
+<!-- S9: SOLUTIONS -->
+<section class="sec" id="s9">
+<div class="sec-lb">09 — 出路</div>
+<h2 class="sec-ti">系统性解决方案</h2>
+<p class="sec-su">从制度缝隙到全面保障。</p>
+
+<!-- Radar as styled comparison -->
+<div class="cht"><div class="cht-h">保障体系：现状 vs 2030目标</div>
+<div style="display:grid;grid-template-columns:auto 1fr 1fr;gap:4px 12px;font-size:11px;align-items:center;padding:4px 0">
+<span style="color:var(--t3)">维度</span><span style="color:var(--red);font-weight:700;text-align:center">现状</span><span style="color:var(--tea);font-weight:700;text-align:center">目标</span>
+<span style="color:var(--t2)">医保覆盖</span><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:90%;height:100%;background:var(--red);border-radius:4px"></div></div><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:98%;height:100%;background:var(--tea);border-radius:4px"></div></div>
+<span style="color:var(--t2)">大病保障</span><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:60%;height:100%;background:var(--red);border-radius:4px"></div></div><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:85%;height:100%;background:var(--tea);border-radius:4px"></div></div>
+<span style="color:var(--t2)">罕见病保障</span><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:20%;height:100%;background:var(--red);border-radius:4px"></div></div><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:60%;height:100%;background:var(--tea);border-radius:4px"></div></div>
+<span style="color:var(--t2)">早诊早治</span><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:55%;height:100%;background:var(--red);border-radius:4px"></div></div><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:80%;height:100%;background:var(--tea);border-radius:4px"></div></div>
+<span style="color:var(--t2)">药价可及</span><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:70%;height:100%;background:var(--red);border-radius:4px"></div></div><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:90%;height:100%;background:var(--tea);border-radius:4px"></div></div>
+<span style="color:var(--t2)">心理健康</span><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:20%;height:100%;background:var(--red);border-radius:4px"></div></div><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:70%;height:100%;background:var(--tea);border-radius:4px"></div></div>
+<span style="color:var(--t2)">健康素养</span><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:32%;height:100%;background:var(--red);border-radius:4px"></div></div><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:50%;height:100%;background:var(--tea);border-radius:4px"></div></div>
+<span style="color:var(--t2)">城乡公平</span><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:45%;height:100%;background:var(--red);border-radius:4px"></div></div><div style="height:8px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden"><div style="width:75%;height:100%;background:var(--tea);border-radius:4px"></div></div>
+</div></div>
+
+<div class="g2" style="margin-top:14px">
+<div class="cd"><h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:10px">🏠 个人与家庭</h4>
+<div class="sol">主动参保：基本+大病+商业三层</div>
+<div class="sol">健康前置：定期体检，癌症早诊率55%+</div>
+<div class="sol">家庭医疗应急基金（≥6月收入）</div>
+<div class="sol">提升健康素养与心理健康意识</div>
+<div class="sol">运动是最佳处方：每周≥4次</div></div>
+<div class="cd"><h4 style="font-size:14px;font-weight:700;color:var(--emb);margin-bottom:10px">🤝 社会层面</h4>
+<div class="sol">慈善组织专业化，扩大覆盖</div>
+<div class="sol">互联网互助透明化</div>
+<div class="sol">社区健康管理网络</div>
+<div class="sol">心理咨询普及，消除病耻感</div>
+<div class="sol">企业EAP纳入心理支持</div></div>
+</div>
+<div class="cd" style="margin-top:14px"><h4 style="font-size:14px;font-weight:700;color:var(--tea);margin-bottom:10px">🏛️ 国家制度</h4>
+<div class="g2"><div><p style="font-size:12px;font-weight:700;color:var(--emb);margin-bottom:8px">短期 1-3年</p>
+<div class="sol">扩大集采覆盖罕见病高值药</div>
+<div class="sol">互联网医疗求助审核标准化</div>
+<div class="sol">慢病门诊统筹待遇提升</div>
+<div class="sol">农村慢病知晓率提升</div>
+<div class="sol">青少年心理筛查全覆盖</div></div>
+<div><p style="font-size:12px;font-weight:700;color:var(--tea);margin-bottom:8px">中长期 3-10年</p>
+<div class="sol">国家罕见病专项基金</div>
+<div class="sol">长护险全国覆盖</div>
+<div class="sol">自付比例28%→15%</div>
+<div class="sol">全民心理健康体系</div>
+<div class="sol">健康素养率→50%</div>
+<div class="sol">缩小城乡医保差距</div></div></div></div>
+</section>
+
+<!-- S10: REFERENCES -->
+<section class="sec" id="s10">
+<div class="sec-lb">10 — 参考文献</div>
+<h2 class="sec-ti">数据来源与参考报告</h2>
+<p class="sec-su">所有数据均来自公开发布的官方统计、学术研究和权威媒体。</p>
+<div class="cd"><h4 style="font-size:13px;font-weight:700;margin-bottom:12px">📄 官方统计与政策文件</h4>
+<div class="ref"><b>[1]</b> 国家卫健委.《2024年卫生健康事业发展统计公报》.2025.</div>
+<div class="ref"><b>[2]</b> 国家医保局.《2024年全国医疗保障事业发展统计公报》.2025.</div>
+<div class="ref"><b>[3]</b> 国家卫健委.《2024年中国居民健康素养监测情况》.2025.1.</div>
+<div class="ref"><b>[4]</b> 国家统计局.《2024年居民收入和消费支出情况》.2025.1.</div>
+<div class="ref"><b>[5]</b> 国务院.《健康中国行动（2019-2030年）》.</div>
+<div class="ref"><b>[6]</b> 国务院发展研究中心.《中国发展报告2023》.</div>
+<div class="ref"><b>[7]</b> 国家扶贫办.建档立卡因病致贫监测数据.2013-2023.</div></div>
+<div class="cd" style="margin-top:14px"><h4 style="font-size:13px;font-weight:700;margin-bottom:12px">📊 学术研究与专业报告</h4>
+<div class="ref"><b>[8]</b> 中科院心理研究所.《心理健康蓝皮书(2023-2024)》.社科文献出版社,2025.</div>
+<div class="ref"><b>[9]</b> 中国精算师协会.《国民重大疾病健康教育读本》.2021.</div>
+<div class="ref"><b>[10]</b> 国家癌症中心.《2022年恶性肿瘤流行情况分析》.中华肿瘤杂志.</div>
+<div class="ref"><b>[11]</b> 中华医学会精神医学分会.《中国抑郁障碍防治指南(2024版)》.</div>
+<div class="ref"><b>[12]</b> 中国罕见病联盟.《中国罕见病综合报告(2021)》.</div>
+<div class="ref"><b>[13]</b> 蔡昉.《以制度建设优化收入分配结构》.《求是》,2025.</div>
+<div class="ref"><b>[14]</b> 卢锋.《聚焦居民消费偏弱的系统成因》.北大国发院,2025.</div>
+<div class="ref"><b>[15]</b> 中国劳动和社会保障科学研究院.《十四五收入分配趋势》.2025.</div></div>
+<div class="cd" style="margin-top:14px"><h4 style="font-size:13px;font-weight:700;margin-bottom:12px">📰 媒体报道</h4>
+<div class="ref"><b>[16]</b> 腾讯新闻.《深夜直播间，跳舞自救的妈妈们》.2025.</div>
+<div class="ref"><b>[17]</b> 第一财经.《2023年居民收入恢复性增长》.2024.</div>
+<div class="ref"><b>[18]</b> The Lancet(柳叶刀).中国精神卫生流行病学数据.</div></div>
+<div class="cd" style="margin-top:14px;background:linear-gradient(135deg,rgba(220,53,69,.02),rgba(196,154,60,.02))">
+<p style="font-size:11.5px;color:var(--t2);line-height:2"><strong>声明：</strong>本报告为信息整理与分析参考，不构成医疗建议。部分数据为近年公开报告估算值，不同来源间可能存在口径差异。</p></div>
+</section>
+
+</div>
+
+<footer class="footer">
+<p><strong style="color:var(--t2)">当一场大病降临：14亿人的健康账本</strong><br>深度数据报告 · 2025<br><br>
+<span style="font-size:9px">长按保存 · 转发朋友圈 · 让更多人看见沉默的数据<br>如果这篇报告让你有所触动，请分享给你关心的人。</span></p>
+</footer>
+
+<div class="share">
+<button class="share-btn share-p" onclick="doShare()">📤 分享到微信</button>
+<button class="share-btn share-s" onclick="doCopy()">🔗 复制链接</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+function doShare(){showToast('请点击右上角 ··· 分享到朋友圈或发送给朋友')}
+function doCopy(){var u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){showToast('✅ 链接已复制')})}else{var t=document.createElement('textarea');t.value=u;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);showToast('✅ 链接已复制')}}
+function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2200)}
+// Scroll reveal
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');e.target.querySelectorAll('.pr-fill,.css-bar-fill').forEach(function(b){if(b.dataset.w)b.style.width=b.dataset.w+'%'})}})},{threshold:.06});
+document.querySelectorAll('.sec').forEach(function(s){obs.observe(s)});
+// Active nav
+var navAs=document.querySelectorAll('.nav a'),secs=document.querySelectorAll('.sec');
+window.addEventListener('scroll',function(){var cur='';secs.forEach(function(s){if(scrollY>=s.offsetTop-120)cur=s.id});navAs.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+cur)})});
+// Animate bars on load for first visible section
+setTimeout(function(){document.querySelectorAll('.css-bar-fill,.pr-fill').forEach(function(b){if(b.dataset.w)b.style.width=b.dataset.w+'%'})},500);
+</script>
+</body>
+</html>
